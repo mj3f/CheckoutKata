@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ED2A4F36-57C5-4A67-819F-B99F9E098388}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B34A9623-0707-48D8-BDE5-53A70FF39C64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckoutKata.Console", "src\CheckoutKata.Console\CheckoutKata.Console.csproj", "{7C8B94B0-90D5-4FE6-8294-185E8FDD5497}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckoutKata.Tests", "tests\CheckoutKata.Tests\CheckoutKata.Tests.csproj", "{3C11102B-C7DA-4F8C-AF0E-8EF403D67418}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C8B94B0-90D5-4FE6-8294-185E8FDD5497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C8B94B0-90D5-4FE6-8294-185E8FDD5497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C8B94B0-90D5-4FE6-8294-185E8FDD5497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C8B94B0-90D5-4FE6-8294-185E8FDD5497}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C11102B-C7DA-4F8C-AF0E-8EF403D67418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C11102B-C7DA-4F8C-AF0E-8EF403D67418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C11102B-C7DA-4F8C-AF0E-8EF403D67418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C11102B-C7DA-4F8C-AF0E-8EF403D67418}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7C8B94B0-90D5-4FE6-8294-185E8FDD5497} = {ED2A4F36-57C5-4A67-819F-B99F9E098388}
+		{3C11102B-C7DA-4F8C-AF0E-8EF403D67418} = {B34A9623-0707-48D8-BDE5-53A70FF39C64}
+	EndGlobalSection
+EndGlobal
