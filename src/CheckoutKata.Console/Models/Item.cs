@@ -1,6 +1,6 @@
 namespace CheckoutKata.Console.Models;
 
-public class Item
+public class Item : IItem
 {
     public string Sku { get; set; }
 

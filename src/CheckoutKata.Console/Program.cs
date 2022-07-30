@@ -1,3 +1,14 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using CheckoutKata.Console;
+using CheckoutKata.Console.Factories;
+using CheckoutKata.Console.Models;
+using CheckoutKata.Console.Promotions;
 
-Console.WriteLine("Hello, World!");
+var shop = new Shop(new ItemFactory());
+
+string userId = "Mike";
+
+var shoppingSession = shop.CreateShoppingSession(userId);
+
+
+shoppingSession.AddToBasket("A");
+shoppingSession.RemoveFromBasket("A");
