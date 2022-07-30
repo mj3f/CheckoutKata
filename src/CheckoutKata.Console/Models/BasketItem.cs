@@ -6,12 +6,12 @@ public class BasketItem
     
     public int Quantity { get; set; }
     
-    public double TotalPrice { get; set; }
+    public double Price { get; set; }
 
     public BasketItem(string itemSku, int quantity, double price)
     {
         ItemSku = itemSku;
         Quantity = quantity;
-        TotalPrice = price;
+        Price = price;
     }
 }

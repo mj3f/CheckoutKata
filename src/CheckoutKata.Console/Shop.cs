@@ -10,17 +10,18 @@ namespace CheckoutKata.Console;
 /// </summary>
 public class Shop
 {
-    public List<IItem> Items { get; }
+    public List<IItem> Items { get; } = new();
     private List<IPromotion> _promotions = new();
     private Dictionary<string, int> _itemQuantities = new();
     private readonly ItemFactory _itemFactory;
 
     public Shop(ItemFactory itemFactory)
     {
-        AddItemToShop(itemFactory.CreateItemA(), 10);
-        AddItemToShop(itemFactory.CreateItemB(), 10);
-        AddItemToShop(itemFactory.CreateItemC(), 10);
-        AddItemToShop(itemFactory.CreateItemD(), 10);
+        var items = itemFactory.CreateItems();
+        foreach (var item in items)
+        {
+            AddItemToShop(item, 10);
+        }
     }
     
     public void AddPromotion(IPromotion promotion) => _promotions.Add(promotion);

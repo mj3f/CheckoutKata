@@ -6,35 +6,42 @@ public sealed class Basket
 
     private readonly Dictionary<string, BasketItem> _items = new();
 
-    public void AddItem(IItem item)
+    public void AddItem(IItem item, int quantity)
     {
         if (!_items.ContainsKey(item.Sku))
         {
-            _items.Add(item.Sku, new BasketItem(item.Sku, 1, item.Price));
+            _items.Add(item.Sku, new BasketItem(item.Sku, quantity, item.Price));
         }
         else
         {
             BasketItem basketItem = _items[item.Sku];
-            basketItem.Quantity += 1;
-            basketItem.TotalPrice += item.Price;
+            basketItem.Quantity += quantity;
         }
     }
 
-    public void RemoveItem(IItem item)
+    public void RemoveItem(IItem item, int quantity)
     {
         if (_items.ContainsKey(item.Sku))
         {
-            _items.Remove(item.Sku);
+            var basketItem = _items[item.Sku];
+            basketItem.Quantity -= quantity;
+
+            if (basketItem.Quantity <= 0)
+            {
+                _items.Remove(item.Sku);
+            }
         }
     }
-    
-    // private double CalculatePrice()
-    // {
-    //     if (_items.Count == 0)
-    //     {
-    //         return 0;
-    //     }
-    //
-    //     return _items.Select(x => x.Price).Sum();
-    // }
+
+    public double CalculateTotalPrice()
+    {
+        TotalPrice = _items.Values.Select(x => x.Price * x.Quantity).Sum();
+        var itmes = _items.Values;
+        foreach (var itme in itmes)
+        {
+            System.Console.WriteLine($"Basket contents: Sku: {itme.ItemSku}, Quantity: {itme.Quantity}, Price: {itme.Price}");
+        }
+        
+        return TotalPrice;
+    }
 }

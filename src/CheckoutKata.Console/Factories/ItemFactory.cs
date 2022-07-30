@@ -27,4 +27,12 @@ public class ItemFactory
         Sku = "D",
         Price = 55
     };
+
+    public List<IItem> CreateItems() => new()
+    {
+        CreateItemA(),
+        CreateItemB(),
+        CreateItemC(),
+        CreateItemD()
+    };
 }
