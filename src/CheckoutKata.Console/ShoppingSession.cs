@@ -15,16 +15,16 @@ public class ShoppingSession
         _shop = shop;
     }
 
-    public void AddToBasket(string itemSku, int quantity = 1) // TODO: Apply any promotions in here.
+    public void AddToBasket(string itemSku, int quantity = 1)
     {
         IItem? item = _shop.Items.FirstOrDefault(x => x.Sku == itemSku);
 
         if (item is not null)
         {
-            var price = CalculatePrice(item, quantity);
+            var price = CalculatePriceForItems(item, quantity);
             
             
-            _basket.AddItem(item, quantity);
+            _basket.AddItem(item, quantity, price);
             int shopItemStock = (int) _shop.GetItemQuantity(itemSku)!;
             _shop.SetItemQuantity(itemSku, shopItemStock - quantity);
             System.Console.WriteLine($"{_userId} Has added item {item.Sku} to their basket with quantity {quantity}.");
@@ -37,20 +37,22 @@ public class ShoppingSession
 
         if (item is not null)
         {
-            _basket.RemoveItem(item, quantity);
             int shopItemStock = (int) _shop.GetItemQuantity(itemSku)!;
             _shop.SetItemQuantity(itemSku, shopItemStock + quantity);
+            
+            var newPrice = CalculatePriceForItems(item, quantity);
+            _basket.RemoveItem(item, quantity, newPrice);
             System.Console.WriteLine($"{_userId} Has removed item {item.Sku} from their basket with quantity {quantity}.");
         }
     }
 
     public void Checkout()
     {
-        double priceToPay = _basket.CalculateTotalPrice();
+        double priceToPay = _basket.GetTotalPrice();
         System.Console.WriteLine($"Total price to pay for user {_userId} is {priceToPay}");
     }
 
-    private double CalculatePrice(IItem item, int quantity)
+    private double CalculatePriceForItems(IItem item, int quantity)
     {
         double price = 0; // item.Price * quantity;
         foreach (var promotion in _shop.Promotions)

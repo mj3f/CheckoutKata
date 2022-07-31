@@ -6,25 +6,27 @@ public sealed class Basket
 
     private readonly Dictionary<string, BasketItem> _items = new();
 
-    public void AddItem(IItem item, int quantity)
+    public void AddItem(IItem item, int quantity, double totalItemPrice)
     {
         if (!_items.ContainsKey(item.Sku))
         {
-            _items.Add(item.Sku, new BasketItem(item.Sku, quantity, item.Price));
+            _items.Add(item.Sku, new BasketItem(item.Sku, quantity, totalItemPrice));
         }
         else
         {
             BasketItem basketItem = _items[item.Sku];
             basketItem.Quantity += quantity;
+            basketItem.Price = totalItemPrice;
         }
     }
 
-    public void RemoveItem(IItem item, int quantity)
+    public void RemoveItem(IItem item, int quantity, double newPrice)
     {
         if (_items.ContainsKey(item.Sku))
         {
             var basketItem = _items[item.Sku];
             basketItem.Quantity -= quantity;
+            basketItem.Price -= newPrice;
 
             if (basketItem.Quantity <= 0)
             {
@@ -33,15 +35,13 @@ public sealed class Basket
         }
     }
 
-    public double CalculateTotalPrice()
+    public double GetTotalPrice()
     {
-        TotalPrice = _items.Values.Select(x => x.Price * x.Quantity).Sum();
-        var itmes = _items.Values;
-        foreach (var itme in itmes)
+        foreach (var item in _items.Values)
         {
-            System.Console.WriteLine($"Basket contents: Sku: {itme.ItemSku}, Quantity: {itme.Quantity}, Price: {itme.Price}");
+            System.Console.WriteLine($"ITEM {item.ItemSku}, price = {item.Price}, quantity = {item.Quantity}");
+            System.Console.WriteLine("-----------------------------");
         }
-        
-        return TotalPrice;
+        return _items.Values.Select(x => x.Price).Sum();
     }
 }

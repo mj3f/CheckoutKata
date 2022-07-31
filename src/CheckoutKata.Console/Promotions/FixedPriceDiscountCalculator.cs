@@ -14,6 +14,20 @@ public class FixedPriceDiscountCalculator : IDiscountCalculator
 
     public double CalculateItemDiscount(double itemPrice, int itemQuantity)
     {
-        return 0;
+        double price = 0;
+        double times = Math.Floor((double)(itemQuantity / MinQuantity));
+
+        if (times > 0)
+        {
+            price = Discount * times;
+        }
+
+        int remainder = itemQuantity % MinQuantity;
+        for (var i = 0; i < remainder; i++)
+        {
+            price += itemPrice;
+        }
+        
+        return price;
     }
 }
