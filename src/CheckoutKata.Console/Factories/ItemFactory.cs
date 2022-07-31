@@ -13,7 +13,7 @@ public class ItemFactory
     public IItem CreateItemB() => new Item
     {
         Sku = "B",
-        Price = 25
+        Price = 15
     };
 
     public IItem CreateItemC() => new Item
