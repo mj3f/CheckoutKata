@@ -16,4 +16,5 @@ userShoppingSession.AddToBasket("A", 5);
 userShoppingSession.RemoveFromBasket("A");
 
 // Get final price of items in the basket.
-userShoppingSession.Checkout();
+double finalPrice = userShoppingSession.Checkout();
+Console.WriteLine($"Final price to pay = {finalPrice}");

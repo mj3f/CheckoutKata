@@ -3,7 +3,7 @@ using CheckoutKata.Console.Promotions;
 
 namespace CheckoutKata.Console;
 
-public class ShoppingSession
+public sealed class ShoppingSession
 {
     private readonly Basket _basket = new();
     private readonly string _userId;
@@ -70,10 +70,9 @@ public class ShoppingSession
     /// <summary>
     /// Gets the total price of all the items in the basket.
     /// </summary>
-    public void Checkout()
+    public double Checkout()
     {
-        double priceToPay = _basket.GetTotalPrice();
-        System.Console.WriteLine($"Total price to pay for user {_userId} is {priceToPay}");
+        return _basket.GetTotalPrice();
     }
 
     /// <summary>
