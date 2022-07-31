@@ -39,7 +39,7 @@ public sealed class ShoppingSession
             var price = CalculatePriceForItems(item, itemQuantity);
             _basket.AddItem(item, quantity, price);
             _shop.SetItemQuantity(itemSku, shopItemStock - quantity);
-            System.Console.WriteLine($"Price for item {item.Sku}, with quantity {itemQuantity} is {price}");
+            System.Console.WriteLine($"Price for item {item.Sku} is {price}, with quantity {itemQuantity}.");
         }
     }
     
@@ -62,8 +62,7 @@ public sealed class ShoppingSession
             int itemQuantity = GetExistingItemInBasketQuantity(itemSku) - quantity;
             var price = CalculatePriceForItems(item, itemQuantity);
             _basket.RemoveItem(item, quantity, price);
-            System.Console.WriteLine($"Price for item {item.Sku}, with quantity {itemQuantity} is {price}");
-
+            System.Console.WriteLine($"Price for item {item.Sku} is {price}, with quantity {itemQuantity}");
         }
     }
 
