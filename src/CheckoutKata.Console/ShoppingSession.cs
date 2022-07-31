@@ -21,13 +21,20 @@ public class ShoppingSession
 
         if (item is not null)
         {
-            var price = CalculatePriceForItems(item, quantity);
-            
-            
-            _basket.AddItem(item, quantity, price);
+            System.Console.WriteLine($"Adding item {itemSku} from basket, quantity to add = {quantity}");
+
             int shopItemStock = (int) _shop.GetItemQuantity(itemSku)!;
+            if (shopItemStock - quantity < 0)
+            {
+                System.Console.WriteLine("quantity of items to add to basket exceeds shop stock!");
+                return;
+            }
+            
+            int itemQuantity = GetExistingItemInBasketQuantity(itemSku) + quantity;
+            var price = CalculatePriceForItems(item, itemQuantity);
+            _basket.AddItem(item, quantity, price);
             _shop.SetItemQuantity(itemSku, shopItemStock - quantity);
-            System.Console.WriteLine($"{_userId} Has added item {item.Sku} to their basket with quantity {quantity}.");
+            System.Console.WriteLine($"Price for item {item.Sku}, with quantity {itemQuantity} is {price}");
         }
     }
 
@@ -37,12 +44,15 @@ public class ShoppingSession
 
         if (item is not null)
         {
+            System.Console.WriteLine($"Removing item {itemSku} from basket, quantity to remove = {quantity}");
             int shopItemStock = (int) _shop.GetItemQuantity(itemSku)!;
             _shop.SetItemQuantity(itemSku, shopItemStock + quantity);
-            
-            var newPrice = CalculatePriceForItems(item, quantity);
-            _basket.RemoveItem(item, quantity, newPrice);
-            System.Console.WriteLine($"{_userId} Has removed item {item.Sku} from their basket with quantity {quantity}.");
+
+            int itemQuantity = GetExistingItemInBasketQuantity(itemSku) - quantity;
+            var price = CalculatePriceForItems(item, itemQuantity);
+            _basket.RemoveItem(item, quantity, price);
+            System.Console.WriteLine($"Price for item {item.Sku}, with quantity {itemQuantity} is {price}");
+
         }
     }
 
@@ -54,7 +64,7 @@ public class ShoppingSession
 
     private double CalculatePriceForItems(IItem item, int quantity)
     {
-        double price = 0; // item.Price * quantity;
+        double price = item.Price * quantity;
         foreach (var promotion in _shop.Promotions)
         {
             if (promotion.ItemSku == item.Sku)
@@ -65,4 +75,13 @@ public class ShoppingSession
 
         return price;
     }
+
+    /// <summary>
+    /// Returns the quantity of the item with item sku in the basket.
+    /// If the item is not in the basket, return 0 quantity.
+    /// </summary>
+    /// <param name="itemSku"></param>
+    /// <returns></returns>
+    private int GetExistingItemInBasketQuantity(string itemSku) =>
+        _basket.Items.ContainsKey(itemSku) ? _basket.Items[itemSku].Quantity : 0;
 }

@@ -2,19 +2,17 @@ namespace CheckoutKata.Console.Models;
 
 public sealed class Basket
 {
-    public double TotalPrice { get; set; }
-
-    private readonly Dictionary<string, BasketItem> _items = new();
+    public Dictionary<string, BasketItem> Items { get; } = new();
 
     public void AddItem(IItem item, int quantity, double totalItemPrice)
     {
-        if (!_items.ContainsKey(item.Sku))
+        if (!Items.ContainsKey(item.Sku))
         {
-            _items.Add(item.Sku, new BasketItem(item.Sku, quantity, totalItemPrice));
+            Items.Add(item.Sku, new BasketItem(item.Sku, quantity, totalItemPrice));
         }
         else
         {
-            BasketItem basketItem = _items[item.Sku];
+            BasketItem basketItem = Items[item.Sku];
             basketItem.Quantity += quantity;
             basketItem.Price = totalItemPrice;
         }
@@ -22,26 +20,26 @@ public sealed class Basket
 
     public void RemoveItem(IItem item, int quantity, double newPrice)
     {
-        if (_items.ContainsKey(item.Sku))
+        if (Items.ContainsKey(item.Sku))
         {
-            var basketItem = _items[item.Sku];
+            var basketItem = Items[item.Sku];
             basketItem.Quantity -= quantity;
-            basketItem.Price -= newPrice;
+            basketItem.Price = newPrice;
 
             if (basketItem.Quantity <= 0)
             {
-                _items.Remove(item.Sku);
+                Items.Remove(item.Sku);
             }
         }
     }
 
     public double GetTotalPrice()
     {
-        foreach (var item in _items.Values)
+        foreach (var item in Items.Values)
         {
             System.Console.WriteLine($"ITEM {item.ItemSku}, price = {item.Price}, quantity = {item.Quantity}");
             System.Console.WriteLine("-----------------------------");
         }
-        return _items.Values.Select(x => x.Price).Sum();
+        return Items.Values.Select(x => x.Price).Sum();
     }
 }

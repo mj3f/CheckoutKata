@@ -12,12 +12,14 @@ var shoppingSession = shop.CreateShoppingSession(userId);
 
 
 shoppingSession.AddToBasket("A", 5);
+// shoppingSession.AddToBasket("A", 1);
 shoppingSession.RemoveFromBasket("A");
-// shoppingSession.AddToBasket("A", 6);
-shoppingSession.AddToBasket("B", 3);
+shoppingSession.AddToBasket("A", 6);
+// shoppingSession.AddToBasket("B", 3);
 
 shoppingSession.Checkout();
 
-shoppingSession.RemoveFromBasket("A");
+shoppingSession.RemoveFromBasket("A", 2);
+// shoppingSession.RemoveFromBasket("A");  
 
 shoppingSession.Checkout();
