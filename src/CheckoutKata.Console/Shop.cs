@@ -8,12 +8,11 @@ namespace CheckoutKata.Console;
 /// A shopfront with a list of items, and the amount of said items the shop has in
 /// stock at any given time.
 /// </summary>
-public class Shop
+public sealed class Shop
 {
     public List<IItem> Items { get; } = new();
     public List<IPromotion> Promotions { get; } = new();
-    private Dictionary<string, int> _itemQuantities = new();
-    private readonly ItemFactory _itemFactory;
+    private readonly Dictionary<string, int> _itemQuantities = new();
 
     public Shop(ItemFactory itemFactory)
     {
@@ -44,6 +43,11 @@ public class Shop
         }
     }
 
+    /// <summary>
+    /// Creates a new shopping session instance (with basket to add items to) for a user.
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <returns></returns>
     public ShoppingSession CreateShoppingSession(string userId) => new(userId, this);
 
     public int? GetItemQuantity(string itemSku)

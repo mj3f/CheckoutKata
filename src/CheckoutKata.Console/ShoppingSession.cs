@@ -15,6 +15,11 @@ public class ShoppingSession
         _shop = shop;
     }
 
+    /// <summary>
+    /// Adds an item to the basket and calculates its price.
+    /// </summary>
+    /// <param name="itemSku"></param>
+    /// <param name="quantity"></param>
     public void AddToBasket(string itemSku, int quantity = 1)
     {
         IItem? item = _shop.Items.FirstOrDefault(x => x.Sku == itemSku);
@@ -37,7 +42,13 @@ public class ShoppingSession
             System.Console.WriteLine($"Price for item {item.Sku}, with quantity {itemQuantity} is {price}");
         }
     }
-
+    
+    /// <summary>
+    /// Removes an item from the basket, re-calculates the price for the item based on the quantity
+    /// remaining in the basket (if any).
+    /// </summary>
+    /// <param name="itemSku"></param>
+    /// <param name="quantity"></param>
     public void RemoveFromBasket(string itemSku, int quantity = 1)
     {
         IItem? item = _shop.Items.FirstOrDefault(x => x.Sku == itemSku);
@@ -56,12 +67,21 @@ public class ShoppingSession
         }
     }
 
+    /// <summary>
+    /// Gets the total price of all the items in the basket.
+    /// </summary>
     public void Checkout()
     {
         double priceToPay = _basket.GetTotalPrice();
         System.Console.WriteLine($"Total price to pay for user {_userId} is {priceToPay}");
     }
 
+    /// <summary>
+    /// Calculates the price for an item added/removed to a basket, based on the quantity.
+    /// </summary>
+    /// <param name="item">The item to be inserted/removed from the basket.</param>
+    /// <param name="quantity">the number of times the item is to be added/removed from the basket.</param>
+    /// <returns>The price of adding an item n times to the basket.</returns>
     private double CalculatePriceForItems(IItem item, int quantity)
     {
         double price = item.Price * quantity;

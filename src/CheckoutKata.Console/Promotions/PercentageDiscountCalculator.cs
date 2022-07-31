@@ -1,5 +1,9 @@
 namespace CheckoutKata.Console.Promotions;
 
+/// <summary>
+/// Applies a discount as a percentage of the value of each item.
+/// E.g. if Discount is 2, then each item will be divided by 2, effectively 50% of the items unit price.
+/// </summary>
 public class PercentageDiscountCalculator : IDiscountCalculator
 {
     public int MinQuantity { get; }

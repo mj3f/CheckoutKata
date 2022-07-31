@@ -2,6 +2,10 @@ using CheckoutKata.Console.Models;
 
 namespace CheckoutKata.Console.Factories;
 
+/// <summary>
+/// Factory to create a set of Items as defined in the kata spec.
+/// This allows us to ensure that each time item X is created, it will have the same Sku and unit price.
+/// </summary>
 public class ItemFactory
 {
     public IItem CreateItemA() => new Item
@@ -28,6 +32,10 @@ public class ItemFactory
         Price = 55
     };
 
+    /// <summary>
+    /// Return a list of pre-determined items to a shop.
+    /// </summary>
+    /// <returns></returns>
     public List<IItem> CreateItems() => new()
     {
         CreateItemA(),

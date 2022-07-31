@@ -1,5 +1,10 @@
 namespace CheckoutKata.Console.Promotions;
 
+/// <summary>
+/// Applies the discount as a fixed price given the quantity.
+/// E.g. if the promotion is 3 for 40, for every 3 quantity items passed in,
+/// the fixed price of 40 will be applied.
+/// </summary>
 public class FixedPriceDiscountCalculator : IDiscountCalculator
 {
     public int MinQuantity { get; }
