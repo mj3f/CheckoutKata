@@ -4,6 +4,7 @@ namespace CheckoutKata.Console.Promotions;
 
 public class ItemPromotion : IPromotion
 {
+    public string Id { get; init; }
     public string ItemSku { get; }
     public IDiscountCalculator DiscountCalculator { get; }
 
@@ -11,6 +12,7 @@ public class ItemPromotion : IPromotion
     {
         ItemSku = itemSku;
         DiscountCalculator = discountCalculator;
+        Id = Guid.NewGuid().ToString();
     }
 
     public double ApplyDiscount(double itemPrice, int itemQuantity)

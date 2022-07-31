@@ -22,13 +22,35 @@ public sealed class Shop
             AddItemToShop(item, 10);
         }
     }
-    
-    public void AddPromotion(IPromotion promotion) => Promotions.Add(promotion);
 
-    public void RemovePromotion(IPromotion promotion) => Promotions.Remove(promotion);
+    public void AddPromotion(IPromotion promotion)
+    {
+        if (string.IsNullOrEmpty(promotion.ItemSku))
+        {
+            return;
+        }
+        
+        Promotions.Add(promotion);
+    }
+
+    public void RemovePromotion(string promotionId)
+    {
+        IPromotion? promotion = Promotions.FirstOrDefault(x => x.Id == promotionId);
+        if (promotion is null)
+        {
+            return;
+        }
+
+        Promotions.Remove(promotion);
+    }
 
     public void AddItemToShop(IItem item, int quantity)
     {
+        if (string.IsNullOrEmpty(item.Sku) || quantity == 0)
+        {
+            return;
+        }
+        
         Items.Add(item);
         _itemQuantities.Add(item.Sku, quantity);
     }
@@ -64,7 +86,7 @@ public sealed class Shop
     {
         if (quantity < 0)
         {
-            throw new ArgumentException("Quantity cannot be less than 0.");
+            return;
         }
 
         if (_itemQuantities.ContainsKey(itemSku))

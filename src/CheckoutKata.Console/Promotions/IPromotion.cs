@@ -8,6 +8,11 @@ namespace CheckoutKata.Console.Promotions;
 public interface IPromotion
 {
     /// <summary>
+    /// Promotion unique identifier.
+    /// </summary>
+    public string Id { get; init; }
+    
+    /// <summary>
     /// The unique identifier of the item that the promotion applies to.
     /// </summary>
     string ItemSku { get; }
