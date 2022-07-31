@@ -82,7 +82,7 @@ public sealed class ShoppingSession
     /// <returns>The price of adding an item n times to the basket.</returns>
     private double CalculatePriceForItems(IItem item, int quantity)
     {
-        double price = item.Price * quantity;
+        double price = item.Price * quantity; // Any applicable promotions found will overwrite this result by design.
         foreach (var promotion in _shop.Promotions)
         {
             if (promotion.ItemSku == item.Sku)
