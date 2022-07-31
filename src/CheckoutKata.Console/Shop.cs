@@ -11,7 +11,7 @@ namespace CheckoutKata.Console;
 public class Shop
 {
     public List<IItem> Items { get; } = new();
-    private List<IPromotion> _promotions = new();
+    public List<IPromotion> Promotions { get; } = new();
     private Dictionary<string, int> _itemQuantities = new();
     private readonly ItemFactory _itemFactory;
 
@@ -24,9 +24,9 @@ public class Shop
         }
     }
     
-    public void AddPromotion(IPromotion promotion) => _promotions.Add(promotion);
+    public void AddPromotion(IPromotion promotion) => Promotions.Add(promotion);
 
-    public void RemovePromotion(IPromotion promotion) => _promotions.Remove(promotion);
+    public void RemovePromotion(IPromotion promotion) => Promotions.Remove(promotion);
 
     public void AddItemToShop(IItem item, int quantity)
     {

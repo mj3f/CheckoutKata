@@ -21,6 +21,9 @@ public class ShoppingSession
 
         if (item is not null)
         {
+            var price = CalculatePrice(item, quantity);
+            
+            
             _basket.AddItem(item, quantity);
             int shopItemStock = (int) _shop.GetItemQuantity(itemSku)!;
             _shop.SetItemQuantity(itemSku, shopItemStock - quantity);
@@ -45,5 +48,19 @@ public class ShoppingSession
     {
         double priceToPay = _basket.CalculateTotalPrice();
         System.Console.WriteLine($"Total price to pay for user {_userId} is {priceToPay}");
+    }
+
+    private double CalculatePrice(IItem item, int quantity)
+    {
+        double price = 0; // item.Price * quantity;
+        foreach (var promotion in _shop.Promotions)
+        {
+            if (promotion.ItemSku == item.Sku)
+            {
+                price = promotion.ApplyDiscount(item.Price, quantity);
+            }
+        }
+
+        return price;
     }
 }

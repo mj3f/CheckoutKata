@@ -1,15 +1,17 @@
 ﻿using CheckoutKata.Console;
 using CheckoutKata.Console.Factories;
+using CheckoutKata.Console.Promotions;
 
 var shop = new Shop(new ItemFactory());
+shop.AddPromotion(new ItemPromotion("A", new PercentageDiscountCalculator(2, 3)));
 
 string userId = "Mike";
 
 var shoppingSession = shop.CreateShoppingSession(userId);
 
 
-shoppingSession.AddToBasket("A", 4);
-shoppingSession.RemoveFromBasket("A");
-shoppingSession.AddToBasket("B", 2);
+// shoppingSession.AddToBasket("A", 4);
+// shoppingSession.RemoveFromBasket("A");
+shoppingSession.AddToBasket("A", 6);
 
 shoppingSession.Checkout();

@@ -4,11 +4,9 @@ namespace CheckoutKata.Console.Promotions;
 
 public interface IPromotion
 {
-    double Discount { get; set; }
+    string ItemSku { get; }
     
-    string ItemSku { get; set; }
-    
-    int Quantity { get; }
+    IDiscountCalculator DiscountCalculator { get; }
 
-    double ApplyDiscount(double price);
+    double ApplyDiscount(double itemPrice, int itemQuantity);
 }
